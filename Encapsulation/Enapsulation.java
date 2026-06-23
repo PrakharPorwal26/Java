@@ -25,15 +25,15 @@ class BankAccount{
 
 class Student{
     private String name;
-    private int rollNumber;
-    private int age;
-    private String college;
+    // private int rollNumber;
+    // private int age;
+    // private String college;
 
     Student(String name, int rollNumber, int age, String college){
         this.name = name;
-        this.rollNumber = rollNumber;
-        this.age = age;
-        this.college = college;
+        // this.rollNumber = rollNumber;
+        // this.age = age;
+        // this.college = college;
     }
 
     //getters and setters
