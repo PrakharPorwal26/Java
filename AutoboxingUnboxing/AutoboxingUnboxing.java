@@ -24,8 +24,8 @@ public class AutoboxingUnboxing {
         
         //Since Integer is a reference type, it can be assigned null value. But int is a primitive type, it can't be assigned null value. Therefore, when we try to unbox a null Integer object to int, it will throw NullPointerException.
 
-        Integer c = null;
-        int d = c; // Unboxing: converting Integer to int, but c is null, so it will throw NullPointerException, this is not compiler error, it will compile successfully, but at runtime it will throw NullPointerException.
+        // Integer c = null;
+        // int d = c; // Unboxing: converting Integer to int, but c is null, so it will throw NullPointerException, this is not compiler error, it will compile successfully, but at runtime it will throw NullPointerException.
 
     }
 }
