@@ -40,3 +40,4 @@ class Outer{
 //2. To group classes that will only be used in one place, which increases encapsulation.
 //3. Builder Design Patter -> Need to learn this
 //4. Static Nested Class can have static methods and static variables, which can be accessed without creating an instance of the static nested class.
+//5. Used in Request/ Response DTOs.
