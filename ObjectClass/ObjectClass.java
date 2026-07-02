@@ -1,7 +1,7 @@
 package ObjectClass;
 // import java.util.Objects;
 public class ObjectClass {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException {
         Student s1 = new Student();
         s1.name = "Prakhar";
         s1.age = 25;
@@ -25,10 +25,14 @@ public class ObjectClass {
         //System.out.println(s1.equals(s2)) --> If we don't override, it will return false because equals() method of Object class compares the references of the objects and not the values of the objects. So, it will return false because s1 and s2 are two different objects with different references. 
 
         //--The equals() method of Integer class overrides the equals() method of Object class to compare the values of the objects and not the references of the objects. So, it will return true because i1 and i2 are two different objects with same values as we have studied before.//
+
+        Student s5 = (Student) s1.clone(); //if Student does not implements Cloneable, this will throw CloneNotSupportedException. 
+
+        System.out.println(s5.name + " " + s5.age);
     }
 }
 
-class Student {
+class Student implements Cloneable {
     String name;
     int age;
 
@@ -66,5 +70,9 @@ class Student {
 
         //return Objects.hash(name, age); 
 
+    }
+    @Override
+    protected Object clone() throws CloneNotSupportedException{
+        return super.clone(); //calling the clone() method of Object class to create a copy of the object
     }
 }
