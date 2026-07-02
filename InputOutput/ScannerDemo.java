@@ -11,12 +11,14 @@ public class ScannerDemo {
         4. nextDouble() - reads a double value from the console.
         5. nextBoolean() - reads a boolean value from the console.
         etc...
-        
+
         Note: Scanner class is part of java.util package.        
         */
 
         Scanner sc = new Scanner(System.in);
         String name = sc.nextLine();
         System.out.println("Hello " + name);
+
+        sc.close(); // Closing the scanner object to prevent resource leak
     }
 }
