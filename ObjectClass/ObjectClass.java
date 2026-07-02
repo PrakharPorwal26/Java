@@ -1,5 +1,5 @@
 package ObjectClass;
-
+// import java.util.Objects;
 public class ObjectClass {
     public static void main(String[] args) {
         Student s1 = new Student();
@@ -19,6 +19,8 @@ public class ObjectClass {
         //Since we have overridden, now s1 and s2 are different references with same values, so now comparison will return true
 
         System.out.println(s1.equals(s2)); 
+
+        System.out.println(s1.hashCode() == s2.hashCode()); //this will return true because we have overridden the hashCode() method. If we would not have, it would have returned false. 
 
         //System.out.println(s1.equals(s2)) --> If we don't override, it will return false because equals() method of Object class compares the references of the objects and not the values of the objects. So, it will return false because s1 and s2 are two different objects with different references. 
 
@@ -48,5 +50,21 @@ class Student {
         Student s = (Student) obj; //downcasting the object of Object class to Student class to access the properties of Student class
 
         return this.name.equals(s.name) && this.age == s.age; //comparing the values of the objects and not the references of the objects
+    }
+
+    @Override
+    public int hashCode(){
+        int result = 17; //initializing the result with a prime number
+
+        result = result*31 + age; //multiplying the result with a prime number and adding the age to it
+
+        result = result*31 + (name == null ? 0 : name.hashCode()); //multiplying the result with a prime number and adding the hashcode of name to it, hashCode() method of String class overrides the hashCode() method of Object class. We check if name is null or not to prevent NullPointerException
+
+        return result; //returning the hashcode of the object
+
+        //We can also use Objects.hash() here, internally it implements the same logic as above 
+
+        //return Objects.hash(name, age); 
+
     }
 }
