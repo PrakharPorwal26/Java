@@ -12,6 +12,8 @@ public class Immutable {
 
         //now, changing the address of student using object of immutable class
 
+        // This will not change the address of the student as the Address object is immutable, the code will execute without error but the address of the student will remain the same.
+
         student.getAddress().city = "Nagpur";
         student.getAddress().state = "Maharashtra";
 
@@ -29,7 +31,8 @@ final class Student {
     Student(String name, int age, Address address){
         this.name = name;
         this.age = age;
-        this.address = address;
+        //creating a new object of Address class to prevent the original address object from being modified outside the Student class
+        this.address = new Address(address.city, address.state);
     }
     
     //getter methods
@@ -42,7 +45,7 @@ final class Student {
     }
 
     public Address getAddress() {
-        return address;
+        return new Address(this.address.city, this.address.state); //returning a new object of Address class to prevent the original address object from being modified outside the Student class
     }
 }
 
