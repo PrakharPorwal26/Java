@@ -6,6 +6,33 @@ public class Enums{
         System.out.println(d); //prints NORTH
         System.out.println(d.getDegrees()); //prints 0
         d.move();
+
+        //values()
+        Direction[] directions = Direction.values();
+        for(Direction dir: directions){
+            System.out.println(dir.name());
+        }
+
+        //valueOf()
+        Direction d2 = Direction.valueOf("SOUTH");
+        System.out.println(d2); //prints SOUTH
+
+        //name()
+        System.out.println(d.name()); //prints NORTH
+
+        //ordinal()
+        System.out.println(d.ordinal()); //prints 0
+
+        /*---Important methods of enum class---
+
+        --> values() - returns an array of all enum constants in the order they are declared. Very useful for iterating over all enum constants. Compiler generated method, not present in Enum class.
+        
+        --> valueOf() - converts a string to the corresponding enum constant. Throws IllegalArgumentException if the string does not match any enum constant. Compiler generated method, not present in Enum class.
+
+        --> name() - returns the name of the enum constant as a string. This method is present in Enum class. This method can't be overridden, this is the difference between name() and toString() method. toString() can be overridden, but name() can't be overridden.
+
+        --> ordinal() - returns the position of the enum constant starting from 0. This method is present in Enum class.    
+        */
     }
 }
 
