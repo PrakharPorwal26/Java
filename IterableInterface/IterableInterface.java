@@ -19,5 +19,26 @@ public class IterableInterface{
         while(it.hasNext()){ //hasNext() return true or false depending on existence of next element in the collection.
             System.out.println(it.next()); //it.next() return the next element and moves the iterator forward
         }
+
+        /* -----------Concurrent Modification Exception */
+
+        List<Integer> list2 = new ArrayList<>();
+        list2.add(1);
+        list2.add(2);
+        list2.add(3);
+        list2.add(4);
+        list2.add(5);
+
+        Iterator<Integer> i = list2.iterator();
+        while(i.hasNext()){
+            int value = i.next();
+            if(value == 3){
+                list2.remove(value); 
+                /*Note - We are using remove() method of List and not Iterator and hence we get the exception. Iterator's remove() method does not take any arguments and removes last traversed element and hence is safe. */
+
+                //we will get exception here
+            }
+            System.out.println(value);
+        }
     }
 }
