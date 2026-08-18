@@ -147,10 +147,10 @@ public class TerminalOperations {
 
            Reducing:
            - reduce()
-           - sum()
-           - max()
-           - min()
-           - average()
+           - sum() - works with primitive streams
+           - max() - works with primitive streams
+           - min() - works with primitive streams
+           - average() - works with primitive streams
            - count()
 
            Search/Match:
