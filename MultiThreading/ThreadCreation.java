@@ -11,26 +11,47 @@ package MultiThreading;
  * class, it cannot extend Thread.
  */
 
-class MyThread extends Thread {
+/* =====================================================
+   USING THREAD CLASS
+   ===================================================== */
 
-    /*
-     * run()
-     * -----
-     * Contains the task that will be executed by the new thread.
-     *
-     * Thread class internally calls run() when start() is invoked.
-     */
+class MyThread extends Thread {
 
     @Override
     public void run() {
 
+        /*
+         * Thread.currentThread()
+         * ----------------------
+         * Static method of Thread class.
+         *
+         * Returns the thread that is currently executing.
+         */
+
+        Thread current = Thread.currentThread();
+
+        /*
+         * getName()
+         * ---------
+         * Returns the name of the current thread.
+         */
+
+        System.out.println(
+                "Currently Executing Thread: "
+                        + current.getName()
+        );
+
         for (int i = 1; i <= 5; i++) {
             System.out.println(
-                    "Thread Class: " + i
+                    current.getName() + " : " + i
             );
         }
     }
 }
+
+/* =====================================================
+   USING RUNNABLE INTERFACE
+   ===================================================== */
 
 class MyRunnable implements Runnable {
 
@@ -40,17 +61,20 @@ class MyRunnable implements Runnable {
      * It contains only one abstract method:
      *
      *      void run()
-     *
-     * The task to be executed by the thread is written
-     * inside this method.
      */
 
     @Override
     public void run() {
 
+        System.out.println(
+                "Currently Executing Thread: "
+                        + Thread.currentThread().getName()
+        );
+
         for (int i = 1; i <= 5; i++) {
             System.out.println(
-                    "Runnable Interface: " + i
+                    Thread.currentThread().getName()
+                            + " : " + i
             );
         }
     }
@@ -61,15 +85,42 @@ public class ThreadCreation {
     public static void main(String[] args) {
 
         /* =====================================================
+           MAIN THREAD
+           ===================================================== */
+
+        /*
+         * Every Java program starts with a thread
+         * called the "main" thread.
+         */
+
+        System.out.println(
+                "Main Thread: "
+                        + Thread.currentThread().getName()
+        );
+
+
+        /* =====================================================
            1. CREATING THREAD USING THREAD CLASS
            ===================================================== */
 
         MyThread t1 = new MyThread();
 
         /*
+         * setName()
+         * ---------
+         * Changes the thread name.
+         *
+         * Useful for debugging and logging.
+         */
+
+        t1.setName("Thread-Class");
+
+        /*
          * start()
          * -------
-         * Creates a new thread and then calls run().
+         * Creates a new thread.
+         *
+         * JVM internally invokes run().
          *
          * Never call run() directly if you want
          * concurrent execution.
@@ -85,31 +136,40 @@ public class ThreadCreation {
         MyRunnable task = new MyRunnable();
 
         /*
-         * Runnable only defines the task.
+         * Runnable only contains the task.
          *
-         * To execute it, we must pass the Runnable
+         * To execute it, we pass the Runnable
          * object to a Thread object.
          */
 
         Thread t2 = new Thread(task);
 
+        t2.setName("Runnable-Thread");
+
         t2.start();
 
 
         /* =====================================================
-           USING LAMBDA EXPRESSION
+           3. USING LAMBDA EXPRESSION
            =====================================================
          */
 
         Thread t3 = new Thread(() -> {
 
+            System.out.println(
+                    "Currently Executing Thread: "
+                            + Thread.currentThread().getName()
+            );
+
             for (int i = 1; i <= 5; i++) {
                 System.out.println(
-                        "Lambda Thread: " + i
+                        Thread.currentThread().getName()
+                                + " : " + i
                 );
             }
-
         });
+
+        t3.setName("Lambda-Thread");
 
         t3.start();
     }
@@ -117,39 +177,68 @@ public class ThreadCreation {
 
 /*
  * =====================================================
- * DIFFERENCE BETWEEN THREAD CLASS & RUNNABLE INTERFACE
+ * QUICK NOTES
  * =====================================================
  *
- * Thread Class
- * ------------
- * class MyThread extends Thread
+ * Ways to Create Thread:
  *
- * Pros:
- * - Simple to understand.
- *
- * Cons:
- * - Consumes the only inheritance opportunity.
- * - Tight coupling between task and thread.
+ * 1. Extending Thread class
+ * 2. Implementing Runnable interface
+ * 3. Lambda Expression (Runnable)
  *
  *
- * Runnable Interface
- * ------------------
- * class MyRunnable implements Runnable
+ * Thread.currentThread()
+ * ----------------------
+ * Returns the currently executing thread.
  *
- * Pros:
- * - Preferred approach.
+ * Example:
+ * Thread.currentThread()
+ *
+ *
+ * getName()
+ * ---------
+ * Returns the thread name.
+ *
+ * Example:
+ * t1.getName()
+ *
+ *
+ * setName()
+ * ---------
+ * Changes the thread name.
+ *
+ * Example:
+ * t1.setName("Worker-1")
+ *
+ *
+ * start()
+ * -------
+ * Creates a new thread and invokes run().
+ *
+ *
+ * run()
+ * -----
+ * Contains the task executed by the thread.
+ *
+ *
+ * start() vs run()
+ * ----------------
+ *
+ * t.start()
+ * -> Creates a NEW thread.
+ * -> Executes run() on that new thread.
+ *
+ * t.run()
+ * -> No new thread is created.
+ * -> Executes like a normal method call
+ *    on the current thread.
+ *
+ *
+ * Which is better?
+ * ----------------
+ * Runnable Interface is generally preferred because:
+ *
  * - Supports inheritance from another class.
  * - Separates task from thread.
  * - Better design and reusability.
- *
- * Cons:
- * - Slightly more code.
- *
- *
- * Interview Question:
- * Which is better?
- *
- * Runnable Interface is generally preferred because
- * it promotes better object-oriented design and
- * avoids the limitation of single inheritance.
  */
