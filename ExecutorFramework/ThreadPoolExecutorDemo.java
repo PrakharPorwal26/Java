@@ -6,16 +6,14 @@ public class ThreadPoolExecutorDemo {
 
     public static void main(String[] args) {
 
-        ThreadPoolExecutor executor =
-                new ThreadPoolExecutor(
-                        2,                      // corePoolSize
-                        4,                      // maximumPoolSize
-                        10,                     // keepAliveTime
-                        TimeUnit.SECONDS,
-                        new ArrayBlockingQueue<>(10)
-                );
-
-        try {
+        try (ExecutorService executor =
+                     new ThreadPoolExecutor(
+                             2,                      // corePoolSize
+                             4,                      // maximumPoolSize
+                             10,                     // keepAliveTime
+                             TimeUnit.SECONDS,
+                             new ArrayBlockingQueue<>(10)
+                     )) {
 
             for (int i = 1; i <= 8; i++) {
 
@@ -35,20 +33,6 @@ public class ThreadPoolExecutorDemo {
                         Thread.currentThread().interrupt();
                     }
                 });
-            }
-
-        } finally {
-
-            executor.shutdown();
-
-            try {
-                executor.awaitTermination(
-                        1,
-                        TimeUnit.MINUTES
-                );
-            } catch (InterruptedException e) {
-                executor.shutdownNow();
-                Thread.currentThread().interrupt();
             }
         }
     }
