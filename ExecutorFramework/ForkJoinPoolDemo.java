@@ -130,14 +130,14 @@ public class ForkJoinPoolDemo {
 
     public static void main(String[] args) {
 
-        /*
-         * ForkJoinPool
-         *
-         * Implements Divide and Conquer.
-         */
+    /*
+     * ForkJoinPool
+     *
+     * Implements Divide and Conquer.
+     */
 
-        ForkJoinPool pool =
-                new ForkJoinPool();
+    try (ForkJoinPool pool =
+                 new ForkJoinPool()) {
 
         /* ---------- RecursiveTask ---------- */
 
@@ -158,6 +158,7 @@ public class ForkJoinPoolDemo {
 
         pool.invoke(printTask);
     }
+}
 }
 
 /*
